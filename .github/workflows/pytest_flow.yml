@@ -37,15 +37,15 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
-    - name: Generate Test Results File
-      uses: actions/checkout@v2
-      run: | 
-        cd intro-to-pytest/junit-report.xml
-        echo hello > intro-to-pytest/junit-report.xml
-    - name: Upload Test Results
+      - name: JUnit Report Action
+        uses: mikepenz/action-junit-report@v2.4.2
+        with:
+          # JUnit xml report paths in glob format
+          report_paths: # optional, default is **/junit-reports/TEST-*.xml
+    - name: Upload Test Results to Repo
       uses: actions/upload-artifact@v2
       with:
         name: JUnit Report
-        path: intro-to-pytest/junit-report.xml
+        path: **/junit-reports/TEST-*.xml
         
 
